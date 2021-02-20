@@ -38,7 +38,7 @@ generate_requirements_txt:
     files.
 
 black_version:
-  default: 20.8b1
+  default: 19.10b0
   type: str
 
 _tasks:
