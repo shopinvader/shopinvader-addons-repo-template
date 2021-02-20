@@ -38,9 +38,3 @@ jobs:
       - run: oca_init_test_database
       - run: oca_run_tests
       - uses: codecov/codecov-action@v1
-      - name: Export translations (.pot)
-        run: |
-          pip install click-odoo-contrib
-          click-odoo-makepot -d odoo --msgmerge-if-new-pot --commit
-          # TODO push changes
-          git diff
