@@ -32,6 +32,8 @@ jobs:
         options:
           --health-cmd pg_isready --health-interval 10s --health-timeout 5s
           --health-retries 5
+    env:
+      PIP_EXTRA_INDEX_URL: "https://wheelhouse.shopinvader.com/simple/"
     steps:
       - uses: actions/checkout@v1
       - run: oca_install_addons
