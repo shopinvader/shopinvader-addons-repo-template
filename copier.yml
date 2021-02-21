@@ -17,12 +17,13 @@ _exclude:
 
 odoo_version:
   type: str
-  default: 14.0
+  default: "14.0"
   choices:
-    - 11.0
-    - 12.0
-    - 13.0
-    - 14.0
+    - "10.0"
+    - "11.0"
+    - "12.0"
+    - "13.0"
+    - "14.0"
   help: Which Odoo version are we deploying in this branch?
 
 repo_slug:
