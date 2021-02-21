@@ -4,8 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - "{{ odoo_version }}"
-      - "{{ odoo_version }}-ocabot*"
+      - "{{ odoo_version }}*"
 
 {%
 set IMAGES = {
