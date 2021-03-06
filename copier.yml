@@ -43,5 +43,9 @@ black_version:
   default: 19.10b0
   type: str
 
+python_line_length:
+  default: 88
+  type: int
+
 _tasks:
   - rm -f .travis.yml

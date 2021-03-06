@@ -46,6 +46,7 @@ repos:
     rev: "{{ black_version }}"
     hooks:
       - id: black
+        args: [--line-length={{ python_line_length }}]
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.1.2
     hooks:
