@@ -31,8 +31,15 @@ jobs:
     env:
       PIP_EXTRA_INDEX_URL: "https://wheelhouse.shopinvader.com/simple/"
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - run: oca_install_addons
       - run: oca_init_test_database
       - run: oca_run_tests
       - uses: codecov/codecov-action@v1
+      - run: oca_export_and_push_pot
+        if: >
+          {{ "${{" }}
+            github.event_name == 'push'
+            && github.repository_owner == 'shopinvader'
+            && startsWith(github.ref, 'refs/heads/{{ odoo_version }}')
+          {{ "}}" }}
