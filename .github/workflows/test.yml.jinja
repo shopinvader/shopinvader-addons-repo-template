@@ -10,17 +10,33 @@ on:
 
 {%
 set IMAGES = {
-  "14.0": "ghcr.io/sbidoul/oca-ci/py3.6-odoo14.0:latest",
-  "13.0": "ghcr.io/sbidoul/oca-ci/py3.6-odoo13.0:latest",
-  "12.0": "ghcr.io/sbidoul/oca-ci/py3.6-odoo12.0:latest",
-  "11.0": "ghcr.io/sbidoul/oca-ci/py3.5-odoo11.0:latest",
-  "10.0": "ghcr.io/sbidoul/oca-ci/py2.7-odoo10.0:latest",
+  "odoo": {
+    "14.0": "ghcr.io/sbidoul/oca-ci/py3.6-odoo14.0:latest",
+    "13.0": "ghcr.io/sbidoul/oca-ci/py3.6-odoo13.0:latest",
+    "12.0": "ghcr.io/sbidoul/oca-ci/py3.6-odoo12.0:latest",
+    "11.0": "ghcr.io/sbidoul/oca-ci/py3.5-odoo11.0:latest",
+    "10.0": "ghcr.io/sbidoul/oca-ci/py2.7-odoo10.0:latest",
+  },
+  "ocb": {
+    "14.0": "ghcr.io/sbidoul/oca-ci/py3.6-ocb14.0:latest",
+    "13.0": "ghcr.io/sbidoul/oca-ci/py3.6-ocb13.0:latest",
+    "12.0": "ghcr.io/sbidoul/oca-ci/py3.6-ocb12.0:latest",
+    "11.0": "ghcr.io/sbidoul/oca-ci/py3.5-ocb11.0:latest",
+    "10.0": "ghcr.io/sbidoul/oca-ci/py2.7-ocb10.0:latest",
+  }
 }
 -%}
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: {{ IMAGES[odoo_version] }}
+    container: {{ "${{" }} matrix.container {{ "}}" }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - container: {{ IMAGES["odoo"][odoo_version] }}
+            makepot: "true"
+          - container: {{ IMAGES["ocb"][odoo_version] }}
     services:
       postgres:
         image: postgres:9.6
@@ -43,4 +59,4 @@ jobs:
       - run: |
           oca_export_and_commit_pot
           git push https://x-access-token:{{ "${{" }} secrets.GIT_PUSH_TOKEN {{ "}}" }}@github.com/{{ "${{" }} github.repository {{ "}}" }}
-        if: {{ "${{" }} github.event_name == 'push' && github.repository_owner == 'shopinvader' && startsWith(github.ref, 'refs/heads/{{ odoo_version }}') {{ "}}" }}
+        if: {{ "${{" }} matrix.makepot == 'true' && github.event_name == 'push' && github.repository_owner == 'shopinvader' && startsWith(github.ref, 'refs/heads/{{ odoo_version }}') {{ "}}" }}
