@@ -51,12 +51,14 @@ repos:
     rev: v2.1.2
     hooks:
       - id: prettier
-        name: prettier + plugin-xml
+        name: prettier{% if prettify_xml %} + plugin-xml{% endif %}
         additional_dependencies:
           - "prettier@2.1.2"
+          {%- if prettify_xml %}
           - "@prettier/plugin-xml@0.12.0"
         args:
           - --plugin=@prettier/plugin-xml
+          {%- endif %}
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v7.8.1
     hooks:

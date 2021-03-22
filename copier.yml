@@ -47,5 +47,9 @@ python_line_length:
   default: 88
   type: int
 
+prettify_xml:
+  default: true
+  type: bool
+
 _tasks:
   - rm -f .travis.yml
