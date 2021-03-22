@@ -52,4 +52,7 @@ prettify_xml:
   type: bool
 
 _tasks:
+  # replaced by .github/workflows
   - rm -f .travis.yml
+  # replaced by .eslintrc.yml
+  - rm -f .eslintrc
