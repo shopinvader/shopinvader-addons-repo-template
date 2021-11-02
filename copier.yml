@@ -24,6 +24,7 @@ odoo_version:
     - "12.0"
     - "13.0"
     - "14.0"
+    - "15.0"
   help: Which Odoo version are we deploying in this branch?
 
 repo_slug:
@@ -38,6 +39,18 @@ generate_requirements_txt:
   help:
     Generate requirements.txt from addons manifests and optional overrides in setup.py
     files.
+
+rebel_module_groups:
+  type: yaml
+  default: []
+  help: >
+    Are there in this repo modules that don't get along with their friends? If so, list
+    them here (YAML format) and they will be tested in separate jobs.
+
+    Beware, if rebel modules should stay separated in groups, you should join them with
+    commas, which could be misinterpreted by YAML.
+
+    Example: ["rebel_module_1,rebel_module_2", even_more_rebel_module]
 
 black_version:
   default: 19.10b0
